@@ -44,14 +44,14 @@ describe("NFTMarket", function () {
     items = await nftMarketplace.fetchMarketItems();
     items = await Promise.all(
       items.map(async (i) => {
-        const tokenUri = await nftMarketplace.tokenURI(i.tokenId);
+        const tokenURI = await nftMarketplace.tokenURI(i.tokenId);
         let item = {
           price: i.price.toString(),
           tokenId: i.tokenId.toString(),
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
-          tokenUri,
+          tokenURI,
         };
         return item;
       })

@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { ethers } from "ethers";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
 
 import { marketplaceAddress } from "../config";
+
 import NFTMarketplace from "../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
 
-export default function Home() {
+export default function CreatorDashboard() {
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
 
@@ -16,60 +17,39 @@ export default function Home() {
   }, []);
 
   async function loadNFTs() {
-    const url = "http://localhost:8545/";
-    const provider = new ethers.providers.JsonRpcProvider(url);
-    // const provider = new ethers.providers.JsonRpcProvider(
-    //   "http://localhost:8545/"
-    // );
-    // console.log(provider);
-    const contract = new ethers.Contract(
-      marketplaceAddress,
-      NFTMarketplace.abi,
-      provider
-    );
-
-    const data = await contract.fetchMarketItems();
-    const items = await Promise.all(
-      data.map(async (i) => {
-        const tokenURI = await contract.tokenURI(i.tokenId);
-        // console.log(tokenURI);
-        const meta = await axios.get(tokenURI);
-        let item = {
-          price: ethers.utils.formatUnits(i.price.toString(), "ether"),
-          tokenId: i.tokenId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
-        };
-        return item;
-      })
-    );
-    setNfts(items);
-    setLoadingState("loaded");
-  }
-
-  async function buyNft(nft) {
-    const web3Modal = new Web3Modal();
+    const web3Modal = new Web3Modal({
+      network: "mainnet",
+      cacheProvider: true,
+    });
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-
     const signer = provider.getSigner();
+
     const contract = new ethers.Contract(
       marketplaceAddress,
       NFTMarketplace.abi,
       signer
     );
+    const data = await contract.fetchItemsListed();
 
-    /* user will be prompted to pay the asking proces to complete the transaction */
-    const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+    const items = await Promise.all(
+      data.map(async (i) => {
+        const tokenUri = await contract.tokenURI(i.tokenId);
+        const meta = await axios.get(tokenUri);
+        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+        let item = {
+          price,
+          tokenId: i.tokenId.toNumber(),
+          seller: i.seller,
+          owner: i.owner,
+          image: meta.data.image,
+        };
+        return item;
+      })
+    );
 
-    const transaction = await contract.createMarketSale(nft.tokenId, {
-      value: price,
-    });
-    await transaction.wait();
-    loadNFTs();
+    setNfts(items);
+    setLoadingState("loaded");
   }
 
   if (loadingState === "not-loaded") {
@@ -97,37 +77,30 @@ export default function Home() {
   }
 
   if (loadingState === "loaded" && !nfts.length)
-    return <h1 className="p-10 text-3xl">No items in marketplace.</h1>;
+    return <h1 className="p-10 text-3xl">No NFTs listed</h1>;
 
   return (
     <div className="flex justify-center">
       <div className="px-4 max-w-screen-2xl">
+        <h2 className="text-2xl pt-6">Items Listed</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {nfts.map((nft, i) => (
             <div
               key={i}
               className="border shadow rounded-xl overflow-hidden flex flex-col"
             >
-              <img src={nft.image} alt={i} width="350" height="350" />
-              <div className="p-4 flex-1">
-                <p
-                  style={{ height: "64px" }}
-                  className="text-2xl font-semibold"
-                >
-                  {nft.name}
-                </p>
-                <div style={{ height: "70px", overflow: "hidden" }}>
-                  <p className="text-gray-400">{nft.description}</p>
-                </div>
-              </div>
+              <img
+                src={nft.image}
+                className="rounded"
+                alt="nft preview"
+                width="350"
+                height="350"
+              />
+              <div className="flex-1"></div>
               <div className="p-4 bg-black">
-                <p className="text-2xl font-bold text-white">{nft.price} ETH</p>
-                <button
-                  className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
-                  onClick={() => buyNft(nft)}
-                >
-                  Buy
-                </button>
+                <p className="text-xl font-bold text-white">
+                  Price - {nft.price} ETH
+                </p>
               </div>
             </div>
           ))}
