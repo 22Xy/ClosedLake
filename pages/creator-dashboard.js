@@ -91,12 +91,10 @@ export default function CreatorDashboard() {
             >
               <img
                 src={nft.image}
-                className="rounded"
                 alt="nft preview"
-                width="350"
                 height="350"
+                className="object-cover flex-1"
               />
-              <div className="flex-1"></div>
               <div className="p-4 bg-black">
                 <p className="text-xl font-bold text-white">
                   Price - {nft.price} ETH

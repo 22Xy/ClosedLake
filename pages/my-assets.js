@@ -92,12 +92,14 @@ export default function MyAssets() {
         <h2 className="text-2xl pt-6">Items Owned</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {nfts.map((nft, i) => (
-            <div key={i} className="border shadow rounded-xl overflow-hidden">
+            <div
+              key={i}
+              className="border shadow rounded-xl flex flex-col overflow-hidden"
+            >
               <img
                 src={nft.image}
-                className="rounded"
-                width="350"
                 height="350"
+                className="object-cover flex-1"
                 alt="nft preview"
               />
               <div className="p-4 bg-black">

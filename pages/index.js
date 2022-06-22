@@ -16,7 +16,10 @@ export default function Home() {
   }, []);
 
   async function loadNFTs() {
-    const url = "http://localhost:8545/";
+    // deploy locally
+    // const url = "http://localhost:8545/";
+    // mumbai testnet
+    const url = "https://rpc-mumbai.maticvigil.com";
     const provider = new ethers.providers.JsonRpcProvider(url);
     // const provider = new ethers.providers.JsonRpcProvider(
     //   "http://localhost:8545/"
@@ -101,27 +104,33 @@ export default function Home() {
 
   return (
     <div className="flex justify-center">
-      <div className="px-4 max-w-screen-2xl">
+      <div className="px-10 max-w-screen-2xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {nfts.map((nft, i) => (
             <div
               key={i}
               className="border shadow rounded-xl overflow-hidden flex flex-col"
             >
-              <img src={nft.image} alt={i} width="350" height="350" />
-              <div className="p-4 flex-1">
-                <p
-                  style={{ height: "64px" }}
-                  className="text-2xl font-semibold"
-                >
+              <img
+                src={nft.image}
+                alt={i}
+                height="350"
+                className="object-cover flex-1"
+              />
+              <div className="p-4">
+                <p className="text-xl xl:text-2xl font-semibold pb-2">
                   {nft.name}
                 </p>
-                <div style={{ height: "70px", overflow: "hidden" }}>
-                  <p className="text-gray-400">{nft.description}</p>
+                <div>
+                  <p className="text-gray-400 line-clamp-3 hover:line-clamp-none text-base xl:text-lg">
+                    {nft.description}
+                  </p>
                 </div>
               </div>
               <div className="p-4 bg-black">
-                <p className="text-2xl font-bold text-white">{nft.price} ETH</p>
+                <p className="text-xl xl:text-2xl font-bold text-white">
+                  {nft.price} ETH
+                </p>
                 <button
                   className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
                   onClick={() => buyNft(nft)}

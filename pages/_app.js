@@ -1,28 +1,35 @@
 import "../styles/globals.css";
-import Link from "next/link";
+import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import { useState } from "react";
+import NavBar from "../components/navbar";
+import React from "react";
+import AppContext from "../components/AppContext";
+
+// This is the chainId your dApp will work on.
+const activeChainId = ChainId.Mainnet;
 
 function MyApp({ Component, pageProps }) {
+  const [walletAddress, setWalletAddress] = useState(undefined);
+  // console.log(walletAddress);
+
   return (
-    <div>
-      <nav className="border-b p-6">
-        <p className="text-4xl font-bold">ClosedLake Marketplace</p>
-        <div className="flex mt-4">
-          <Link href="/">
-            <a className="mr-6 text-pink-500">Home</a>
-          </Link>
-          <Link href="/create-item">
-            <a className="mr-6 text-pink-500">Sell Digital Asset</a>
-          </Link>
-          <Link href="/my-assets">
-            <a className="mr-6 text-pink-500">My Digital Assets</a>
-          </Link>
-          <Link href="/creator-dashboard">
-            <a className="mr-6 text-pink-500">Creator Dashboard</a>
-          </Link>
-        </div>
-      </nav>
-      <Component {...pageProps} />
-    </div>
+    <AppContext.Provider
+      value={{
+        state: {
+          walletAddress: walletAddress,
+        },
+        setWalletAddress: setWalletAddress,
+      }}
+    >
+      <ThirdwebProvider desiredChainId={activeChainId}>
+        <NavBar />
+        {walletAddress === undefined ? (
+          <h1 className="p-10 text-3xl">Please connect a wallet</h1>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </ThirdwebProvider>
+    </AppContext.Provider>
   );
 }
 
