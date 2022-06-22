@@ -42,10 +42,11 @@ export default function CreateItem() {
         // callback for uploading progress
         progress: (p) => {
           setProgress(p / file.size);
-          console.log(`Received: ${p / file.size}`);
+          // console.log(`Received: ${p / file.size}`);
         },
       });
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      // console.log(url);
       setFileUrl(url);
     } catch (error) {
       console.log(error);
