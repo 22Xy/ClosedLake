@@ -5,22 +5,22 @@ import { create as ipfsHttpClient } from "ipfs-http-client";
 import Web3Modal from "web3modal";
 import { useRouter } from "next/router";
 
-const projectId = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_ID;
-const projectSecret = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_SECRET;
-const projectIdAndSecret = `${projectId}:${projectSecret}`;
+// const projectId = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_ID;
+// const projectSecret = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_SECRET;
+// const projectIdAndSecret = `${projectId}:${projectSecret}`;
 // ipfs client for uploading images
-// const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
-console.log(projectIdAndSecret);
-const client = ipfsHttpClient({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-  headers: {
-    authorization: `Basic ${Buffer.from(projectIdAndSecret).toString(
-      "base64"
-    )}`,
-  },
-});
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+// console.log(projectIdAndSecret);
+// const client = ipfsHttpClient({
+//   host: "ipfs.infura.io",
+//   port: 5001,
+//   protocol: "https",
+//   headers: {
+//     authorization: `Basic ${Buffer.from(projectIdAndSecret).toString(
+//       "base64"
+//     )}`,
+//   },
+// });
 import { marketplaceAddress } from "../config";
 import NFTMarketplace from "../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
 
