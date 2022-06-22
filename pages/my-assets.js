@@ -98,6 +98,7 @@ export default function MyAssets() {
             >
               <img
                 src={nft.image}
+                width="350"
                 height="350"
                 className="object-cover flex-1"
                 alt="nft preview"

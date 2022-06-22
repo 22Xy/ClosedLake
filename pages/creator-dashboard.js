@@ -92,6 +92,7 @@ export default function CreatorDashboard() {
               <img
                 src={nft.image}
                 alt="nft preview"
+                width="350"
                 height="350"
                 className="object-cover flex-1"
               />
