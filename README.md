@@ -11,37 +11,44 @@
 ### Marketplace
 
 - All items in the marketplace that are available to purchase.
-  ![](https://i.imgur.com/NwjP3y8.png)
+
+![](https://i.imgur.com/NwjP3y8.png)
 
 ### Purchase NFT
 
 - Your NFT is one click away.
-  ![](https://i.imgur.com/UBg2gfL.png)
+
+![](https://i.imgur.com/UBg2gfL.png)
 - My Digital Assets Page
-  ![](https://i.imgur.com/nO84pCo.png)
+
+![](https://i.imgur.com/nO84pCo.png)
 
 ### Resell NFT
 
 - List your bought NFT back to the marketplace
-  ![](https://i.imgur.com/iJsbWZC.png)
-  ![](https://i.imgur.com/AVcrLRE.png)
+
+![](https://i.imgur.com/iJsbWZC.png)
+![](https://i.imgur.com/AVcrLRE.png)
 
 ### Creator Dashboard
 
 - An overview of items listed by you.
-  ![](https://i.imgur.com/wckWAG5.png)
+
+![](https://i.imgur.com/wckWAG5.png)
 
 ### Switch Account
 
-- Switch account in Metamask
-  ![](https://i.imgur.com/wKLZHP4.png)
-  ![](https://i.imgur.com/H8k6MA0.png)
+- Switch between accounts in Metamask
+
+![](https://i.imgur.com/wKLZHP4.png)
+![](https://i.imgur.com/H8k6MA0.png)
 
 ### Line Clamping
 
 - Hover to read more!
-  ![](https://i.imgur.com/PxpwI1b.png)
-  ![](https://i.imgur.com/K7bW4TW.png)
+
+![](https://i.imgur.com/PxpwI1b.png)
+![](https://i.imgur.com/K7bW4TW.png)
 
 ## Tech Stack
 
