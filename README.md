@@ -59,6 +59,7 @@
 
 ## TODO
 
+- [ ] Learn how to build a more robust API layer using [The Graph Protocol](https://thegraph.com/en/) to get around limitations in the data access patterns provided by the native blockchain layer.
 - [ ] Use GCP VM instance to host a IPFS node for file storage. This [blog](https://ecency.com/hive-148441/@igormuba/how-to-host-an-ipfs) may help.
 - [ ] Improve UI
 
